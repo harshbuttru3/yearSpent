@@ -5,8 +5,9 @@ var timeDifference = currentDate.getTime() - startDate.getTime();
 
 var daysDifference = timeDifference /(1000 * 3600* 24);
 var days = Math.floor(daysDifference)
-
-var progress = (days*100)/365; // Example value, you can change this as needed
+console.log(days)
+console.log(daysDifference)
+var progress = (daysDifference*100)/365; // Example value, you can change this as needed
         // var progressBar = document.getElementById('progressBar');
         // progressBar.style.width = progress + '%';
         // progressBar.textContent = progress + '%';
@@ -22,9 +23,9 @@ console.log(progress);
 let number = document.getElementById("number");
 let counter = 0;
 setInterval(() => {
-    if(counter < progress){
-      counter += 1
-    number.innerHTML = counter + "%";  
+    if(counter <= progress){
+      counter += .5;
+    number.innerHTML = counter.toFixed(2) + "%";  
     }
     
 },30 );
@@ -45,4 +46,7 @@ for (var i = 0; i < styleSheets.length; i++) {
             }
         }
     }
+
 }
+var circleElement = document.querySelector('circle');
+circleElement.style.animation = 'anim '+(progress*30/0.5)+'ms linear forwards';
