@@ -6,12 +6,15 @@ var timeDifference = currentDate.getTime() - startDate.getTime();
 var daysDifference = timeDifference /(1000 * 3600* 24);
 var days = Math.floor(daysDifference)
 console.log(days)
-console.log(daysDifference)
-var progress = (daysDifference*100)/365; // Example value, you can change this as needed
-        // var progressBar = document.getElementById('progressBar');
-        // progressBar.style.width = progress + '%';
-        // progressBar.textContent = progress + '%';
-//days
+console.log(daysDifference);
+let totalDays;
+if((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0){
+totalDays = 366;
+}else{
+    totalDays = 365;
+}
+var progress = daysDifference * 100/totalDays;
+
 var dayElement = document.getElementById("days");
 dayElement.textContent = days ;
 //year
@@ -19,16 +22,17 @@ var yearElement = document.getElementById("year");
 yearElement.textContent = year;
 
 
-console.log(progress);
+let timeInterval = 30;
+let step = 0.19;
 let number = document.getElementById("number");
 let counter = 0;
 setInterval(() => {
     if(counter <= progress){
-      counter += .5;
+      counter += step;
     number.innerHTML = counter.toFixed(2) + "%";  
     }
     
-},30 );
+},timeInterval );
 
 var progressPercent = 472 - (4.72 * progress);
 // Get the stylesheets for changing the progress of circle.
@@ -49,4 +53,9 @@ for (var i = 0; i < styleSheets.length; i++) {
 
 }
 var circleElement = document.querySelector('circle');
-circleElement.style.animation = 'anim '+(progress*30/0.5)+'ms linear forwards';
+circleElement.style.animation = 'anim '+(progress*timeInterval/step)+'ms linear forwards';
+
+
+//updating the number of total days in html content.
+let totalNoOfDays = document.getElementById("totaldays");
+totalNoOfDays.innerHTML = totalDays;
